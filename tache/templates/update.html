@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="danger">Update Task</h1>
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Update" class="btn btn-warning btn-sm">
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% comment %} entete de l'application {% endcomment %}
+<div class="container">
+    <h1>Tasks</h1>
+    <div class="pb-2">
+        <div class="card">
+    <div class="card-body">
+        <form class="d-flex flex-row align-items-center" action="." method="POST">
+            {% csrf_token %}
+              {{ form }} 
+          <button type="submit" class="btn btn-primary btn-sm">
+            Add</button>
+        </form>  
+    </div>
+    </div>
+    </div>
+
+    {% comment %} fin de l'entete de l'application {% endcomment %}
+    <hr class="my-4"
+    <div>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks reversed %}
+                <tr>
+                    
+                    <td class="lead fw-normal mb-0">{{ task.description }}</td>
+                    <td >
+                        <a href="{% url 'update' task.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{% url 'delete' task.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+{% endblock content %}
+<!-- <tr>
+    <td>
+        <p>{{task|title}}</p>
+    </td>
+    <td>
+        <a href="{{task.id}}/update">update</a>
+        <a href="{{task.id}}/delete">delete</a>
+    </td>
+</tr> -->
